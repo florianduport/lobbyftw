@@ -1,0 +1,25 @@
+<p>Ok</p>
+
+<input id="chatPseudo" type="hidden" value="{{chatPseudo}}"/>
+
+<h3>Connected users</h3>
+<ul id="connectedUsers">
+  {{#each chat.users}}
+    <li>{{this.username}}</li>
+  {{/each}}
+</ul>
+
+<h3>Global messges</h3>
+<ul id="messageList">
+  {{#each chat.messages}}
+    <li>{{this.pseudo}} : {{this.message}}</li>
+  {{/each}}
+</ul>
+
+
+<textarea id="messageToSend"></textarea>
+<br/>
+<input id="sendMessage" type="button" value="send message"/>
+
+
+<script src="/javascripts/chatclient.js"></script>
