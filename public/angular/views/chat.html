@@ -1,2 +1,48 @@
-chat ok
-{{user.username}}
+<div id="container" ng-controller="globalChatController">
+  <div id="sidebar" class="col-md-2">
+    <div id="name">
+      <h1>Need Last</h1>
+    </div>
+    <div id="channels">
+      <h3>CHANNELS</h3>
+      <ul>
+        <li class="active"><a href="/#/general"><span class="sharp">#</span> général</a></li>
+        <li><a href="/#/lobby/1"><span class="sharp">#</span> room 1</a></li>
+        <li><a href="/#/lobby/2"><span class="sharp">#</span> room 2</a></li>
+        <li><a href="/#/lobby/3"><span class="sharp">#</span> room 3</a></li>
+      </ul>
+    </div>
+    <div id="connectedUsers">
+      <h3>JOUEURS</h3>
+      <ul>
+        <li ng-repeat="user in chat.users">
+          <div class="onlineUser pull-left"></div><span class="pull-left">{{user.username}}</span>
+        </li>
+      </ul>
+    </div>
+    <div id="currentUser" class="col-md-12">
+      <img src="{{user.avatar.medium}}" class="pull-left"/>
+      <div class="details pull-left">
+        <div>{{user.username}}</div>
+        <div><a href="/logout">se déconnecter</a></div>
+      </div>
+    </div>
+  </div>
+  <div id="chatzone" class="col-md-10">
+    <div id="channelName"><h3># général</h3></div>
+    <div id="chatzone_content">
+      <div class="chatzone_message" ng-repeat="message in chat.messages">
+        <div class="profilePictureContainer pull-left">
+          <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/97/972fdacd1901016b782b6a4262f0eb4862d43e06.jpg" class="profilePicture "/>
+        </div>
+        <div class="pseudo">{{message.user.username}} <span class="time">{{message.displayDate}}</span></div>
+        <div>
+          <p class="msgLine" ng-repeat="msgLine in message.messages track by $index">{{msgLine}}</p>
+        </div>
+      </div>
+    </div>
+    <div id="textbox">
+      <textarea autofocus rows="1"></textarea>
+    </div>
+  </div>
+</div>

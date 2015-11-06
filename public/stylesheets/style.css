@@ -1,8 +1,123 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+html,body {
+    height:100%;
 }
-
-a {
-  color: #00B7FF;
+body{
+  letter-spacing: 0.5;
+}
+#container{
+  height: 100%;
+}
+#name{
+  background-color: #2C3849;
+  top: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  margin-bottom: 30px;
+}
+#name h1{
+  font-family: 'Lato',sans-serif;
+  font-size: 1.5em;
+  font-weight: 900;
+  padding-left: 20px;
+}
+#sidebar{
+  background-color: #303E4D;
+  height: 100%;
+  color : white;
+  padding: 0;
+}
+#sidebar h3{
+  text-align: left;
+  font-size: 1em;
+  line-height: 1.25em;
+  margin: 0 1em .1em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #acb1b7;
+  width: 160px;
+}
+#sidebar a{
+  color : white;
+  text-decoration: none;
+}
+#channels{
+  margin-bottom: 30px;
+}
+#sidebar ul{
+  padding-left : 0;
+}
+#sidebar li{
+  list-style: none;
+  width: 90%;
+  padding-left: 10px;
+}
+#channels .active{
+  background-color: #6698C8;
+  border-top-right-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+#channels .sharp{
+  color: #acb1b7;
+}
+#chatzone{
+  background-color: white;
+  height: 100%;
+}
+#chatzone_content{
+  height: 87%;
+}
+#currentUser{
+  bottom: 0px;
+  position: absolute;
+  background-color: #2C3849;
+  padding: 10px;
+}
+#currentUser .details{
+  margin-left: 10px;
+}
+.onlineUser{
+  background-color: #93CC92;
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  margin-top: 6px;
+  margin-right: 5px;
+}
+#channelName{
+  font-weight: bold;
+}
+#textbox{
+  bottom: 0;
+}
+#textbox textarea{
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+}
+#chatzone_content{
+  overflow: auto;
+}
+#chatzone_content .profilePicture{
+  margin-right: 10px;
+  margin-top : 4px;
+}
+#chatzone_content .pseudo{
+  font-weight: bold;
+  letter-spacing: normal;
+}
+#chatzone_content .time{
+  color: lightgrey;
+  font-size: 0.8em;
+}
+.chatzone_message{
+  margin-bottom: 10px;
+}
+.profilePictureContainer{
+}
+.msgLine{
+  padding: 0;
+  margin: 0;
+  margin-left: 42px;
+  word-wrap: break-word;
 }

@@ -14,7 +14,7 @@
         templateUrl: '/angular/views/index.html',
         controller: 'indexController'
       }).
-      when('/global/', {
+      when('/general/', {
         templateUrl: '/angular/views/chat.html',
         controller: 'globalChatController'
       }).
@@ -43,6 +43,9 @@
   lobbyftwControllers.controller('globalChatController', ['$scope', '$rootScope', '$socket', '$location', '$http',
     function($scope, $rootScope, $socket, $location, $http) {
 
+      $scope.sendMessage = function(message){
+        $socket.emit('sendMessage', { user : $scope.user, messages : [message], date : new Date()});
+      }
 
       //load user
       $http.get('/loadUser').success(function(data) {
@@ -57,6 +60,7 @@
         $socket.emit('addChatUser', $scope.user);
 
         $socket.on('updateChat', function(data) {
+          console.log(data);
             $scope.chat = data;
         });
       });

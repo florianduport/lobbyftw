@@ -15,12 +15,14 @@ class ChatController {
       if(chat.users[i].socketId == socket.id)
         currentPseudo = chat.users[i].username;
     }
-
-    chat.messages.push({
-      pseudo : currentPseudo,
-      message: data.message,
-      date : new Date()
-    });
+    data.date = new Date(data.date);
+    data.displayDate = data.date.getHours() + ":" + data.date.getMinutes();
+    console.log(data);
+    if(chat.messages.length > 0 && data.user.steamid == chat.messages[chat.messages.length-1].user.steamid && Math.round((( (data.date - chat.messages[chat.messages.length-1].date) % 86400000) % 3600000) / 60000) < 2){
+      chat.messages[chat.messages.length-1].messages.push(data.messages[0]);
+    } else {
+      chat.messages.push(data);
+    }
     if(chat.messages.length == 50)
       chat.messages.splice(messages.length-1, 1);
 
@@ -32,10 +34,21 @@ class ChatController {
     }
   }
 
-  addChatUser(username, socket){
-    if(chat.users.indexOf(username) == -1){
+  addChatUser(user, socket){
+    console.log(user)
+    var foundUser = false;
+    for (var i = 0; i < chat.users.length; i++) {
+      if(user && chat.users[i].steamid == user.steamid){
+        foundUser = true;
+        delete clientSockets[chat.users[i].socketId];
+        clientSockets[socket.id] = socket;
+        chat.users[i].socketId = socket.id;
+      }
+    }
+    if(user && !foundUser){
       clientSockets[socket.id] = socket;
-      chat.users.push({ username : username, socketId : socket.id });
+      user.socketId = socket.id;
+      chat.users.push(user);
     }
     this.broadcastMessages();
   }
