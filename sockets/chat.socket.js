@@ -5,6 +5,7 @@ class ChatSocket {
     global.io.on('connection', function(socket){
 
       socket.on('addChatUser', function(pseudo){
+        console.log('ok');
         chatController.addChatUser(pseudo, socket);
       })
 

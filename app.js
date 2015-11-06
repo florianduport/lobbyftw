@@ -1,5 +1,5 @@
 var express = require('express');
-var exphbs  = require('express-handlebars');
+//var exphbs  = require('express-handlebars');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -24,13 +24,14 @@ var routes = require('./routes/index');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-var exphbsInstance = exphbs.create({
+/*var exphbsInstance = exphbs.create({
   layoutsDir: path.join(app.settings.views, ""),
 	defaultLayout: 'layout',
 	extname: '.html'
-});
-app.engine('html', exphbsInstance.engine);
-app.set('view engine', 'html');
+});*/
+//app.engine('html', exphbsInstance.engine);
+
+app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
