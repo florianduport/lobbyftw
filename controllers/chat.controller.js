@@ -16,7 +16,11 @@ class ChatController {
         currentPseudo = chat.users[i].username;
     }
     data.date = new Date(data.date);
-    data.displayDate = data.date.getHours() + ":" + data.date.getMinutes();
+    var minutes = "" + data.date.getMinutes();
+    if(minutes.length == 1)
+      minutes = "0"+minutes;
+
+    data.displayDate = data.date.getHours() + ":" +  minutes;
     console.log(data);
     if(chat.messages.length > 0 && data.user.steamid == chat.messages[chat.messages.length-1].user.steamid && Math.round((( (data.date - chat.messages[chat.messages.length-1].date) % 86400000) % 3600000) / 60000) < 2){
       chat.messages[chat.messages.length-1].messages.push(data.messages[0]);

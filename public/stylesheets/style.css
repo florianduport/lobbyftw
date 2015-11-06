@@ -106,6 +106,12 @@ body{
   font-weight: bold;
   letter-spacing: normal;
 }
+#chatzone_content .pseudo a{
+  color: black;
+}
+#chatzone_content .pseudo a:hover{
+  text-decoration: none;
+}
 #chatzone_content .time{
   color: lightgrey;
   font-size: 0.8em;

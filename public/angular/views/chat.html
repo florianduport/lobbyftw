@@ -15,7 +15,8 @@
     <div id="connectedUsers">
       <h3>JOUEURS</h3>
       <ul>
-        <li ng-repeat="user in chat.users">
+        <li ng-repeat="user in chat.users track by $index">
+          <br ng-show="$index > 0"/>
           <div class="onlineUser pull-left"></div><span class="pull-left">{{user.username}}</span>
         </li>
       </ul>
@@ -33,9 +34,9 @@
     <div id="chatzone_content">
       <div class="chatzone_message" ng-repeat="message in chat.messages">
         <div class="profilePictureContainer pull-left">
-          <img src="https://steamcdn-a.akamaihd.net/steamcommunity/public/images/avatars/97/972fdacd1901016b782b6a4262f0eb4862d43e06.jpg" class="profilePicture "/>
+          <img src="{{message.user.avatar.small}}" class="profilePicture "/>
         </div>
-        <div class="pseudo">{{message.user.username}} <span class="time">{{message.displayDate}}</span></div>
+        <div class="pseudo"><a href="{{message.user.profile}}" target="_blank">{{message.user.username}}</a> <span class="time">{{message.displayDate}}</span></div>
         <div>
           <p class="msgLine" ng-repeat="msgLine in message.messages track by $index">{{msgLine}}</p>
         </div>
