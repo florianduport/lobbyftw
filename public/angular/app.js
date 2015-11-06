@@ -60,8 +60,8 @@
         $socket.emit('addChatUser', $scope.user);
 
         $socket.on('updateChat', function(data) {
-          console.log(data);
-            $scope.chat = data;
+          //console.log(data);
+          $scope.chat = data;
         });
       });
 
