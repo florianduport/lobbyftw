@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+   // where idOfYourVideo is the YouTube ID.
   $("body").delegate('#textbox textarea', 'keydown', function(event) {
       // Check the keyCode and if the user pressed Enter (code = 13)
       if (event.keyCode == 13) {

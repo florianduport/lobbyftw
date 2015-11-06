@@ -4,8 +4,23 @@ html,body {
 body{
   letter-spacing: 0.5;
 }
+#indexContainer_popin{
+  height: 500px;
+  background-color: #303E4D;
+  opacity: 0.9;
+  margin-top: 50px;
+  color: white;
+}
+#tubularWrapper{
+  position:absolute;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
+}
 #container{
   height: 100%;
+  z-index: 99;
 }
 #name{
   background-color: #2C3849;
@@ -61,7 +76,6 @@ body{
   color: #acb1b7;
 }
 #chatzone{
-  background-color: white;
   height: 100%;
 }
 #chatzone_content{
@@ -126,4 +140,12 @@ body{
   margin: 0;
   margin-left: 42px;
   word-wrap: break-word;
+}
+#overlayer{
+  top: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  background-color: lightgrey;
+  opacity: 0.8;
 }
