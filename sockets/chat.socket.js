@@ -12,8 +12,8 @@ class ChatSocket {
 
       //socket.emit('updateMessages', { hello: 'worlddd' });
 
-      socket.on('sendMessage', function (data) {
-        chatController.updateMessages(socket, data);
+      socket.on('sendMessage', function (channel, data) {
+        chatController.updateMessages(socket, channel, data);
       });
 
     });

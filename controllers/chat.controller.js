@@ -1,7 +1,25 @@
 'use strict'
 var clientSockets = {};
+var maxChannelHistory = 300;
 var chat = {
-  messages : [],
+  channels : {
+    "général" : {
+      id : 0,
+      messages : []
+    },
+    "room 1" : {
+      id : 1,
+      messages : []
+    },
+    "room 2" : {
+      id : 2,
+      messages : []
+    },
+    "room 3" : {
+      id : 3,
+      messages : []
+    }
+  },
   users : []
 };
 
@@ -9,7 +27,7 @@ class ChatController {
   cleanSockets(){
     //todo => suppr disconnected sockets
   }
-  updateMessages(socket, data){
+  updateMessages(socket, channelParam, data){
     var currentPseudo = "";
     for (var i = 0; i < chat.users.length; i++) {
       if(chat.users[i].socketId == socket.id)
@@ -21,14 +39,27 @@ class ChatController {
       minutes = "0"+minutes;
 
     data.displayDate = data.date.getHours() + ":" +  minutes;
-    console.log(data);
-    if(chat.messages.length > 0 && data.user.steamid == chat.messages[chat.messages.length-1].user.steamid && Math.round((( (data.date - chat.messages[chat.messages.length-1].date) % 86400000) % 3600000) / 60000) < 2){
-      chat.messages[chat.messages.length-1].messages.push(data.messages[0]);
-    } else {
-      chat.messages.push(data);
+
+    var currentChannel = chat.channels["général"];
+    for (var property in chat.channels) {
+      if(chat.channels[property].id == channelParam){
+        currentChannel = chat.channels[property];
+      }
     }
-    if(chat.messages.length == 50)
-      chat.messages.splice(messages.length-1, 1);
+
+    if(currentChannel.messages.length > 0 && data.user.steamid == currentChannel.messages[currentChannel.messages.length-1].user.steamid && Math.round((( (data.date - currentChannel.messages[currentChannel.messages.length-1].date) % 86400000) % 3600000) / 60000) < 2){
+      currentChannel.messages[currentChannel.messages.length-1].messages.push(data.messages[0]);
+    } else {
+      currentChannel.messages.push(data);
+    }
+    if(currentChannel.messages.length == maxChannelHistory)
+      currentChannel.messages.splice(messages.length-1, 1);
+
+    for (var property in chat.channels) {
+      if(chat.channels[property].id == currentChannel){
+        chat.channels[property] = currentChannel;
+      }
+    }
 
     this.broadcastMessages();
   }

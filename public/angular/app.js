@@ -18,7 +18,7 @@
         templateUrl: '/angular/views/chat.html',
         controller: 'globalChatController'
       }).
-      when('/lobby/:id', {
+      when('/channel/:id', {
         templateUrl: '/angular/views/chat.html',
         controller: 'globalChatController'
       })
@@ -40,8 +40,13 @@
     }
   ]);
 
-  lobbyftwControllers.controller('globalChatController', ['$scope', '$rootScope', '$socket', '$location', '$http',
-    function($scope, $rootScope, $socket, $location, $http) {
+  lobbyftwControllers.controller('globalChatController', ['$scope', '$rootScope', '$routeParams', '$socket', '$location', '$http',
+    function($scope, $rootScope, $routeParams, $socket, $location, $http) {
+
+      $scope.channel = 0;
+      if($routeParams !== undefined && $routeParams.id !== undefined){
+          $scope.channel = $routeParams.id;
+      }
 
       $scope.sendMessage = function(message){
         $socket.emit('sendMessage', { user : $scope.user, messages : [message], date : new Date()});

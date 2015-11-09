@@ -1,4 +1,5 @@
 <div id="container" ng-controller="globalChatController">
+  <input id="channelName" type="hidden" value="{{channel}}"/>
   <div id="overlayer"></div>
   <div id="sidebar" class="col-md-2">
     <div id="name">
@@ -7,11 +8,15 @@
     <div id="channels">
       <h3>CHANNELS</h3>
       <ul>
-        <li class="active"><a href="/#/general"><span class="sharp">#</span> général</a></li>
-        <li><a href="/#/lobby/1"><span class="sharp">#</span> room 1</a></li>
-        <li><a href="/#/lobby/2"><span class="sharp">#</span> room 2</a></li>
-        <li><a href="/#/lobby/3"><span class="sharp">#</span> room 3</a></li>
-      </ul>
+        <li ng-repeat="channelEl in chat.channels track by $index" ng-class="active: channelEl.id == channel">
+          <div ng-if="channelEl.id == 0">
+              <li><a href="/#/general"><span class="sharp">#</span> général</a></li>
+          </div>
+          <div ng-if="channelEl.id != 0">
+              <a href="/#/room/{{channelEl.id}}"><span class="sharp">#</span> {{$index}}</a>
+          </div>
+        </li>
+      <ul>
     </div>
     <div id="connectedUsers">
       <h3>JOUEURS</h3>
