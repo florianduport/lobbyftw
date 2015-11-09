@@ -80,6 +80,8 @@
               $scope.currentChannel = $scope.chat.channels[channelEl];
             }
           }
+          var height = jQuery("#chatzone_content")[0].scrollHeight;
+          jQuery("#chatzone_content").scrollTop(height+150);
         });
       });
 

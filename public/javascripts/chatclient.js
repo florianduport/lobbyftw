@@ -6,6 +6,8 @@ $(document).ready(function(){
           event.preventDefault();
           angular.element('#container').scope().sendMessage($('#channelName').val(), $('#textbox textarea').val());
           $('#textbox textarea').val("")
+          var height = jQuery("#chatzone_content")[0].scrollHeight;
+          jQuery("#chatzone_content").scrollTop(height+150);
       }
   });
 
