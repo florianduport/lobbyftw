@@ -5,19 +5,75 @@ var chat = {
   channels : {
     "général" : {
       id : 0,
-      messages : []
+      messages : [{
+        channelId : 0,
+        date : new Date(),
+        displayDate : "00:00",
+        messages : ["Bonjour et bienvenue sur NeedLast.com !"],
+        user : {
+          name : "Bot",
+          profile : "#",
+          username : "Bot",
+          avatar : {
+            small : "/images/csgo-logo.png",
+            medium : "/images/csgo-logo.png"
+          }
+        }
+      }]
     },
     "room 1" : {
       id : 1,
-      messages : []
+      messages : [{
+        channelId : 0,
+        date : new Date(),
+        displayDate : "00:00",
+        messages : ["Bonjour et bienvenue sur NeedLast.com !"],
+        user : {
+          name : "Bot",
+          profile : "#",
+          username : "Bot",
+          avatar : {
+            small : "/images/csgo-logo.png",
+            medium : "/images/csgo-logo.png"
+          }
+        }
+      }]
     },
     "room 2" : {
       id : 2,
-      messages : []
+      messages : [{
+        channelId : 0,
+        date : new Date(),
+        displayDate : "00:00",
+        messages : ["Bonjour et bienvenue sur NeedLast.com !"],
+        user : {
+          name : "Bot",
+          profile : "#",
+          username : "Bot",
+          avatar : {
+            small : "/images/csgo-logo.png",
+            medium : "/images/csgo-logo.png"
+          }
+        }
+      }]
     },
     "room 3" : {
       id : 3,
-      messages : []
+      messages : [{
+        channelId : 0,
+        date : new Date(),
+        displayDate : "00:00",
+        messages : ["Bonjour et bienvenue sur NeedLast.com !"],
+        user : {
+          name : "Bot",
+          profile : "#",
+          username : "Bot",
+          avatar : {
+            small : "/images/csgo-logo.png",
+            medium : "/images/csgo-logo.png"
+          }
+        }
+      }]
     }
   },
   users : []

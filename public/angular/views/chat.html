@@ -3,7 +3,7 @@
   <div id="overlayer"></div>
   <div id="sidebar" class="col-md-2">
     <div id="name">
-      <h1>Need Last</h1>
+      <h1><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Need/Last<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></h1>
     </div>
     <div id="channels">
       <h3>CHANNELS</h3>
@@ -57,6 +57,19 @@
 
 <script>
   $(document).ready(function(){
-    $('#content').tubular({videoId: 'lqFtFUIJSJw'});
+    var videoList = [
+    'Bm_qKFWCg00',
+    'Bm_qKFWCg00',
+    'ORb54BFRUsY',
+    'nDX3PPM2i0E',
+    'b7KHPYd1SGQ',
+    'qKjhG0F44MQ',
+    'Vq6_SSKiL5o',
+    'zNmInKCy4lE',
+    'ORb54BFRUsY',
+    'ORb54BFRUsY'
+  ];
+  var random = Math.floor((Math.random() * videoList.length-1) + 1);
+    $('#content').tubular({videoId: videoList[random]});
   });
 </script>

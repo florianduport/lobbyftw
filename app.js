@@ -10,12 +10,7 @@ var bodyParser = require('body-parser');
 var steamHelper = require('steam-login');
 
 var app = express();
-app.use(require('express-session')({ resave: false, saveUninitialized: false, secret: 'lobbyftw' }));
-app.use(steamHelper.middleware({
-    realm: 'http://localhost:3000/',
-    verify: 'http://localhost:3000/verify',
-    apiKey: "D7A77ED400EAC15C7D155DB457DC503C"}
-));
+
 
 
 global.steam = steamHelper;
@@ -38,7 +33,13 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser()); 
+app.use(require('express-session')({ secret: 'lobbyftw' }));
+app.use(steamHelper.middleware({
+    realm: 'http://localhost:3000/',
+    verify: 'http://localhost:3000/verify',
+    apiKey: "D7A77ED400EAC15C7D155DB457DC503C"}
+));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
