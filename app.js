@@ -33,13 +33,21 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser()); 
+app.use(cookieParser());
 app.use(require('express-session')({ secret: 'lobbyftw' }));
-app.use(steamHelper.middleware({
-    realm: 'http://localhost:3000/',
-    verify: 'http://localhost:3000/verify',
-    apiKey: "D7A77ED400EAC15C7D155DB457DC503C"}
-));
+if (app.get('env') === 'development'){
+  app.use(steamHelper.middleware({
+      realm: 'http://localhost:3000/',
+      verify: 'http://localhost:3000/verify',
+      apiKey: "D7A77ED400EAC15C7D155DB457DC503C"}
+  ));
+} else {
+  app.use(steamHelper.middleware({
+      realm: 'http://need-last.com/',
+      verify: 'http://need-last.com/verify',
+      apiKey: "D7A77ED400EAC15C7D155DB457DC503C"}
+  ));
+}
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
@@ -55,7 +63,7 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
-if (app.get('env')){ // === 'development') {
+if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('error', {
