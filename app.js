@@ -6,9 +6,17 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-
+//steam login
 var steamHelper = require('steam-login');
 
+
+var Steam = require('steam'),
+    steamClient = new Steam.SteamClient(),
+    steamUser = new Steam.SteamUser(steamClient),
+    steamGC = new Steam.SteamGameCoordinator(steamClient, 730);
+    csgo = require('csgo'),
+    CSGO = new csgo.CSGOClient(steamUser, steamGC, false);
+    global.CSGO = CSGO;
 var app = express();
 
 

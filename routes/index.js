@@ -12,6 +12,14 @@ router.get('/loadUser',  function(req, res) {
       username : "Testeur"
     });*/
 
+    if(req.user !== undefined){
+      console.log("yoooooo")
+      console.log(req.user.steamid)
+
+      req.user.csgo =  global.CSGO.playerProfileRequest(global.CSGO.ToAccountID(req.user.steamid));
+
+      console.log(req.user.csgo);
+    }
     res.json(req.user !== undefined ? req.user : false);
 });
 router.get('/verify', global.steam.verify(), function(req, res) {
