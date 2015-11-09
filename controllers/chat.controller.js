@@ -27,7 +27,7 @@ class ChatController {
   cleanSockets(){
     //todo => suppr disconnected sockets
   }
-  updateMessages(socket, channelParam, data){
+  updateMessages(socket, data){
     var currentPseudo = "";
     for (var i = 0; i < chat.users.length; i++) {
       if(chat.users[i].socketId == socket.id)
@@ -42,7 +42,7 @@ class ChatController {
 
     var currentChannel = chat.channels["général"];
     for (var property in chat.channels) {
-      if(chat.channels[property].id == channelParam){
+      if(chat.channels[property].id == data.channelId){
         currentChannel = chat.channels[property];
       }
     }

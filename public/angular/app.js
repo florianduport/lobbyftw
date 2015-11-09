@@ -18,7 +18,7 @@
         templateUrl: '/angular/views/chat.html',
         controller: 'globalChatController'
       }).
-      when('/channel/:id', {
+      when('/room/:id', {
         templateUrl: '/angular/views/chat.html',
         controller: 'globalChatController'
       })
@@ -48,8 +48,15 @@
           $scope.channel = $routeParams.id;
       }
 
-      $scope.sendMessage = function(message){
-        $socket.emit('sendMessage', { user : $scope.user, messages : [message], date : new Date()});
+      $scope.sendMessage = function(channelId, message){
+        $socket.emit('sendMessage', {channelId : channelId, user : $scope.user, messages : [message], date : new Date()});
+      }
+      $scope.isCurrentChannel = function(channel){
+
+        if($scope.channel == channel.id)
+          return "active";
+        else
+          return false;
       }
 
       //load user
@@ -65,8 +72,14 @@
         $socket.emit('addChatUser', $scope.user);
 
         $socket.on('updateChat', function(data) {
-          //console.log(data);
+          console.log(data);
           $scope.chat = data;
+          $scope.currentChannel;
+          for (var channelEl in $scope.chat.channels) {
+            if($scope.chat.channels[channelEl].id == $scope.channel){
+              $scope.currentChannel = $scope.chat.channels[channelEl];
+            }
+          }
         });
       });
 

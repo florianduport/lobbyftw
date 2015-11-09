@@ -8,12 +8,12 @@
     <div id="channels">
       <h3>CHANNELS</h3>
       <ul>
-        <li ng-repeat="channelEl in chat.channels track by $index" ng-class="active: channelEl.id == channel">
+        <li ng-repeat="channelEl in chat.channels track by $index" ng-class="isCurrentChannel(channelEl)">
           <div ng-if="channelEl.id == 0">
-              <li><a href="/#/general"><span class="sharp">#</span> général</a></li>
+              <a href="/#/general"><span class="sharp">#</span> général</a>
           </div>
           <div ng-if="channelEl.id != 0">
-              <a href="/#/room/{{channelEl.id}}"><span class="sharp">#</span> {{$index}}</a>
+              <a href="/#/room/{{channelEl.id}}"><span class="sharp">#</span> room {{$index}}</a>
           </div>
         </li>
       <ul>
@@ -36,9 +36,10 @@
     </div>
   </div>
   <div id="chatzone" class="col-md-10">
-    <div id="channelName"><h3># général</h3></div>
+    <div id="channelName" ng-if="channel == 0"><h3># général</h3></div>
+    <div id="channelName" ng-if="channel > 0"><h3># room {{channel}}</h3></div>
     <div id="chatzone_content">
-      <div class="chatzone_message" ng-repeat="message in chat.messages">
+      <div class="chatzone_message" ng-repeat="message in currentChannel.messages">
         <div class="profilePictureContainer pull-left">
           <img src="{{message.user.avatar.small}}" class="profilePicture "/>
         </div>
