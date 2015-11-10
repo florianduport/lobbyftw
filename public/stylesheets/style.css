@@ -77,9 +77,12 @@ body{
 }
 #chatzone{
   height: 100%;
+  position: relative;
+  padding: 0px;
 }
 #chatzone_content{
-  height: 87%;
+  height: 85%;
+  padding: 10px;
 }
 #currentUser{
   bottom: 0px;
@@ -100,9 +103,13 @@ body{
 }
 #channelName{
   font-weight: bold;
+  padding: 10px;
 }
 #textbox{
   bottom: 0;
+  position: absolute;
+  width: 100%;
+  padding: 10px;
 }
 #textbox textarea{
   width: 100%;
@@ -127,7 +134,7 @@ body{
   text-decoration: none;
 }
 #chatzone_content .time{
-  color: lightgrey;
+  color: grey;
   font-size: 0.8em;
 }
 .chatzone_message{

@@ -57,19 +57,22 @@
 
 <script>
   $(document).ready(function(){
-    var videoList = [
-    'Bm_qKFWCg00',
-    'Bm_qKFWCg00',
-    'ORb54BFRUsY',
-    'nDX3PPM2i0E',
-    'b7KHPYd1SGQ',
-    'qKjhG0F44MQ',
-    'Vq6_SSKiL5o',
-    'zNmInKCy4lE',
-    'ORb54BFRUsY',
-    'ORb54BFRUsY'
-  ];
-  var random = Math.floor((Math.random() * videoList.length-1) + 1);
-    $('#content').tubular({videoId: videoList[random]});
+    var video = false;
+    if(video){
+      var videoList = [
+      'Bm_qKFWCg00',
+      'Bm_qKFWCg00',
+      'ORb54BFRUsY',
+      'nDX3PPM2i0E',
+      'b7KHPYd1SGQ',
+      'qKjhG0F44MQ',
+      'Vq6_SSKiL5o',
+      'zNmInKCy4lE',
+      'ORb54BFRUsY',
+      'ORb54BFRUsY'
+      ];
+      var random = Math.floor((Math.random() * videoList.length-1) + 1);
+      $('#content').tubular({videoId: videoList[random]});
+    }
   });
 </script>
