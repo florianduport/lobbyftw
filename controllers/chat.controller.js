@@ -143,6 +143,23 @@ class ChatController {
     }
     this.broadcastMessages();
   }
+
+  removeChatUser(socket){
+    var deleteIndex;
+    if(chat !== undefined && chat.users !== undefined && socket !== undefined){
+      for (var i = 0; i < chat.users.length; i++) {
+        if(chat.users[i].socketId == socket.id){
+          deleteIndex = i;
+        }
+      }
+      if(deleteIndex !== undefined){
+        chat.users.splice(deleteIndex, 1);
+        if(clientSockets[socket.id] !== undefined)
+          delete clientSockets[socket.id];
+      }
+    }
+  }
+
   getChat(){
     return chat;
   }

@@ -16,6 +16,10 @@ class ChatSocket {
         chatController.updateMessages(socket, data);
       });
 
+      socket.on('disconnect', function() {
+        chatController.removeChatUser(socket);
+      });
+
     });
   }
 }
