@@ -52,6 +52,29 @@
         $scope.channel = $routeParams.id;
       }
 
+      $socket.on('disconnect', function(){
+        var socketState = false;
+        $socket.on('connect', function(){
+          $socket.emit('addChatUser', $scope.user);
+          socketState = true;
+        });
+        var tryReconnect = function(){
+          setTimeout(function(){
+              if(!socketState){
+                $socket.getSocket().connect();
+                setTimeout(function(){
+                  tryReconnect();
+                }, 1000);
+              }
+              else{
+                return;
+              }
+          }, 2000);
+        }
+        tryReconnect();
+
+      })
+
       $scope.sendMessage = function(channelId, message) {
         $socket.emit('sendMessage', {
           channelId: channelId,

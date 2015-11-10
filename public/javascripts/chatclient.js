@@ -10,5 +10,9 @@ $(document).ready(function(){
           jQuery("#chatzone_content").scrollTop(height+150);
       }
   });
+  if($("#chatzone_content")[0] !== undefined){
+    var height = $("#chatzone_content")[0].scrollHeight;
+    $("#chatzone_content").scrollTop(height+150);
+  }
 
 });

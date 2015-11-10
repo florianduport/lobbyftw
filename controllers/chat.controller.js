@@ -79,15 +79,37 @@ var chat = {
   users : []
 };
 
+if(global.redis !== undefined){
+  global.redis.get('chat', function(err, chatRedis){
+    if(!err && chatRedis !== undefined && chatRedis !== null)
+      chat = JSON.parse(chatRedis);
+  });
+  /*global.redis.get('clientSockets', function(err, clientSocketsRedis){
+    if(!err && clientSocketsRedis !== undefined && clientSocketsRedis !== null)
+      clientSockets = JSON.parse(clientSocketsRedis);
+  });*/
+}
+
 class ChatController {
   cleanSockets(){
     //todo => suppr disconnected sockets
   }
   updateMessages(socket, data){
+    console.log(data);
     var currentPseudo = "";
     for (var i = 0; i < chat.users.length; i++) {
-      if(chat.users[i].socketId == socket.id)
+      if(chat.users[i].socketId == socket.id){
         currentPseudo = chat.users[i].username;
+      }
+    }
+    //plan de secours =>
+    if(currentPseudo == ""){
+      for (var i = 0; i < chat.users.length; i++) {
+        if(chat.users[i].steamid == data.user.steamid){
+          currentPseudo = chat.users[i].username;
+          clientSockets[chat.users[i].socketId] = socket;
+        }
+      }
     }
     data.date = new Date(data.date);
     var minutes = "" + data.date.getMinutes();
@@ -116,17 +138,19 @@ class ChatController {
         chat.channels[property] = currentChannel;
       }
     }
-
+    global.redis.set('chat', JSON.stringify(chat));
     this.broadcastMessages();
   }
   broadcastMessages(){
     for (var i = 0; i < chat.users.length; i++) {
-      clientSockets[chat.users[i].socketId].emit('updateChat', chat);
+      if(clientSockets[chat.users[i].socketId] !== undefined){
+        clientSockets[chat.users[i].socketId].emit('updateChat', chat);
+      }
     }
   }
 
   addChatUser(user, socket){
-    console.log(user)
+    //console.log(user)
     var foundUser = false;
     for (var i = 0; i < chat.users.length; i++) {
       if(user && chat.users[i].steamid == user.steamid){

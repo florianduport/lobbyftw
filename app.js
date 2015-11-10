@@ -5,7 +5,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 //steam login
 var steamHelper = require('steam-login');
 
@@ -22,6 +21,9 @@ var app = express();
 
 
 global.steam = steamHelper;
+
+var redisPackage = require('redis');
+global.redis = redisPackage.createClient();
 
 var routes = require('./routes/index');
 
@@ -42,7 +44,10 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(require('express-session')({ secret: 'lobbyftw' }));
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
+
+app.use(session({ store: new RedisStore(), secret: 'lobbyftw' }));
 if (app.get('env') === 'development'){
   app.use(steamHelper.middleware({
       realm: 'http://localhost:3000/',
