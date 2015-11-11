@@ -16,8 +16,37 @@ $(document).ready(function(){
   }
   $('#rankSelect select').selectpicker();
 
-  $('body').delegate('#rankSelect select', 'change', function(){
+  checkLinks();
+
+
+/*  $('body').delegate('#rankSelect select', 'change', function(){
     console.log($('#rankSelect select option:selected').val());
-  });
+  }); */
 
 });
+
+var checkLinks = function(){
+  $(".msgLine").each(function(){
+    if($(this).data('analysed') === undefined){
+    var content = $(this).html();
+
+    var words = content.split(' ');
+    var newContent = "";
+    for (var i = 0; i < words.length; i++) {
+      if(words[i].indexOf('http://') > -1){
+        var text = words[i];
+        words[i] = "<a href='"+text+"' target='_blank'>"+text+"</a>";
+        console.log(words[i]);
+      }
+      if(i == 0){
+        newContent += words[i];
+      } else {
+        newContent += " "+words[i];
+      }
+    }
+
+    $(this).data('analysed', true);
+    $(this).html(newContent);
+    }
+  });
+}

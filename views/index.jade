@@ -14,5 +14,8 @@ html(ng-app="lobbyftwApp")
     script(src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/js/i18n/defaults-fr_FR.min.js")
     script(src="/javascripts/lib/jquery.tubular.1.0.js")
     script(src="/javascripts/chatclient.js")
+    link(rel="icon" href="/images/csgo-logo.ico")
+    title Need-Last.com
   body(ng-controller="mainController")
     div(ng-view id="content")
+    input(type="hidden" name="authToken" id="authToken" value="#{authToken}")

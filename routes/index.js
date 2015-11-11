@@ -1,16 +1,22 @@
 var express = require('express');
 var router = express.Router();
 var chatController = require('../controllers/chat.controller');
-
+var sha1 = require('sha1');
 
 
 router.get('/authenticate', global.steam.authenticate(), function(req, res) {
     res.redirect('/');
 });
-router.get('/loadUser',  function(req, res) {
-
-    res.json(req.user !== undefined ? req.user : false);
-});
+/*router.get('/loadUser',  function(req, res) {
+    var user = req.user !== undefined ? req.user : false;
+    /*if(req.user !== undefined)
+      user = chatController.getUser(req.user.steamid);
+    if(!user && req.user !== undefined){
+      user = req.user;
+      user.rank = { id: 0 , name: "Aucun grade"};
+    }
+    res.json(user);
+});*/
 router.get('/resetredis',  function(req, res) {
   var chat = {
     channels : {
@@ -24,6 +30,7 @@ router.get('/resetredis',  function(req, res) {
           user : {
             name : "Bot",
             profile : "#",
+            rank : {id : 0, name : "Aucun Grade"},
             username : "Bot",
             avatar : {
               small : "/images/csgo-logo.png",
@@ -42,6 +49,7 @@ router.get('/resetredis',  function(req, res) {
           user : {
             name : "Bot",
             profile : "#",
+            rank : {id : 0, name : "Aucun Grade"},
             username : "Bot",
             avatar : {
               small : "/images/csgo-logo.png",
@@ -60,6 +68,7 @@ router.get('/resetredis',  function(req, res) {
           user : {
             name : "Bot",
             profile : "#",
+            rank : {id : 0, name : "Aucun Grade"},
             username : "Bot",
             avatar : {
               small : "/images/csgo-logo.png",
@@ -78,6 +87,7 @@ router.get('/resetredis',  function(req, res) {
           user : {
             name : "Bot",
             profile : "#",
+            rank : {id : 0, name : "Aucun Grade"},
             username : "Bot",
             avatar : {
               small : "/images/csgo-logo.png",
@@ -91,11 +101,12 @@ router.get('/resetredis',  function(req, res) {
   };
   global.redis.set('chat', JSON.stringify(chat));
   global.redis.set('clientSockets', "{}");
+
   res.send('ok');
 });
 router.get('/verify', global.steam.verify(), function(req, res) {
-    //console.log("here")
-
+  
+    chatController.chatTempStorage()[sha1(req.user.steamid+"lobbyftw")] = req.user;
     res.redirect('/#/general');
     //res.send(req.user).end();
 });
@@ -104,7 +115,11 @@ router.get('/logout', global.steam.enforceLogin('/'), function(req, res) {
     res.redirect('/');
 });
 router.get('*', function(req, res, next) {
-  res.render('index');
+  var authToken = "";
+  if(req.user !== undefined){
+    authToken = sha1(req.user.steamid + "lobbyftw");
+  }
+  res.render('index', {authToken : authToken});
 });
 
 

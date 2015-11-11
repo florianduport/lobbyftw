@@ -31,8 +31,8 @@
       <img src="{{user.avatar.medium}}" class="pull-left"/>
       <div class="details pull-left">
         <div>{{user.username}}</div>
-        <div id="rankSelect">{{user.rankId}}
-          <select class="btn" ng-options="item for item in ranks track by $index" ng-model="selectedRank"></select>
+        <div id="rankSelect">
+          <select class="btn" ng-options="rank.id as rank.name for rank in ranks" ng-model="user.rank.id" ng-change="updateUser()"></select>
         </div>
         <div><a href="/logout">se déconnecter</a></div>
       </div>
@@ -43,12 +43,41 @@
     <div id="channelName" ng-if="channel > 0"><h3># room {{channel}}</h3></div>
     <div id="chatzone_content">
       <div class="chatzone_message" ng-repeat="message in currentChannel.messages">
-        <div class="profilePictureContainer pull-left">
-          <img src="{{message.user.avatar.small}}" class="profilePicture "/>
+        <div ng-if="!message.isLobbyMessage">
+          <div class="rankPictureContainer pull-left">
+            <img src="/images/grades/grade{{message.user.rank.id}}.png"/>
+          </div>
+          <div class="profilePictureContainer pull-left">
+            <img src="{{message.user.avatar.small}}" class="profilePicture "/>
+          </div>
+          <div class="pseudo"><a href="{{message.user.profile}}" target="_blank">{{message.user.username}}</a> <span class="time">{{message.displayDate}}</span></div>
+          <div>
+            <p class="msgLine" ng-repeat="msgLine in message.messages track by $index">{{msgLine}}</p>
+          </div>
         </div>
-        <div class="pseudo"><a href="{{message.user.profile}}" target="_blank">{{message.user.username}}</a> <span class="time">{{message.displayDate}}</span></div>
-        <div>
-          <p class="msgLine" ng-repeat="msgLine in message.messages track by $index">{{msgLine}}</p>
+        <div ng-if="message.isLobbyMessage" class="msgLobby">
+          <div class="rankPictureContainer pull-left">
+            <img src="/images/grades/grade{{message.user.rank.id}}.png"/>
+          </div>
+          <div class="profilePictureContainer pull-left">
+            <img src="{{message.user.avatar.small}}" class="profilePicture "/>
+          </div>
+            <div>
+              <p class="msgLine">
+                <b>{{message.user.username}} a ouvert un lobby</b> <span class="time">{{message.displayDate}}</span>
+
+                <div ng-if="message.isLobbyOpen && message.user.steamid != user.steamid" class="joinLobbyButtonZone pull-left">
+                  <a href="{{message.isLobbyMessage}}"><button class="btn btn-success"><span class="glyphicon glyphicon-play"></span> Rejoindre</button></a>
+                </div>
+                <div ng-if="message.isLobbyOpen && message.user.steamid == user.steamid" class="joinLobbyButtonZone pull-left">
+                  <button class="btn btn-danger" ng-click="closeLobby(message)"><span class="glyphicon glyphicon-stop"></span> Fermer</button>
+                  <a href="{{message.isLobbyMessage}}"><button class="btn btn-success"><span class="glyphicon glyphicon-play"></span> Rejoindre</button></a>
+                </div>
+                <div ng-if="!message.isLobbyOpen" class="joinLobbyButtonZone pull-left">
+                  <b>{{message.user.username}} a fermé le lobby</b>
+                </div>
+              </p>
+            </div>
         </div>
       </div>
     </div>
