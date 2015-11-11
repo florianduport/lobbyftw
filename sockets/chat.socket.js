@@ -7,10 +7,6 @@ class ChatSocket {
         chatController.addChatUser(user, socket);
       })
 
-      //console.log(socket);
-
-      //socket.emit('updateMessages', { hello: 'worlddd' });
-
       socket.on('sendMessage', function (data) {
         chatController.updateMessages(socket, data);
       });

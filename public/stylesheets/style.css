@@ -133,6 +133,13 @@ body{
 #chatzone_content .pseudo a:hover{
   text-decoration: none;
 }
+#rankSelect select{
+  color: black !important;
+  max-width: 150px !important;
+}
+.bootstrap-select{
+  color : black;
+}
 #chatzone_content .time{
   color: grey;
   font-size: 0.8em;

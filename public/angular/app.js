@@ -47,6 +47,28 @@
   lobbyftwControllers.controller('globalChatController', ['$scope', '$rootScope', '$routeParams', '$socket', '$location', '$http',
     function($scope, $rootScope, $routeParams, $socket, $location, $http) {
 
+      $scope.ranks = [
+        "Aucun grade",
+        "Silver I",
+        "Silver II",
+        "Silver III",
+        "Silver IV",
+        "Silver Elite",
+        "Silver Elite Master",
+        "Gold Nova I",
+        "Gold Nova II",
+        "Gold Nova III",
+        "Gold Nova Master",
+        "Master Guardian I",
+        "Master Guardian II",
+        "Master Guardian Elite",
+        "Distinguished Master Guardian",
+        "Legendary Eagle",
+        "Legendary Eagle Master",
+        "Supreme Master First Class",
+        "The Global Elite",
+      ]
+
       $scope.channel = 0;
       if ($routeParams !== undefined && $routeParams.id !== undefined) {
         $scope.channel = $routeParams.id;

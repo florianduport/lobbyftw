@@ -14,5 +14,10 @@ $(document).ready(function(){
     var height = $("#chatzone_content")[0].scrollHeight;
     $("#chatzone_content").scrollTop(height+150);
   }
+  $('#rankSelect select').selectpicker();
+
+  $('body').delegate('#rankSelect select', 'change', function(){
+    console.log($('#rankSelect select option:selected').val());
+  });
 
 });

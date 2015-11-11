@@ -80,6 +80,7 @@ var chat = {
 };
 
 if(global.redis !== undefined){
+
   global.redis.get('chat', function(err, chatRedis){
     if(!err && chatRedis !== undefined && chatRedis !== null)
       chat = JSON.parse(chatRedis);
@@ -98,6 +99,8 @@ class ChatController {
     console.log(data);
     var currentPseudo = "";
     for (var i = 0; i < chat.users.length; i++) {
+      //temp
+      chat.users[i].rankId = 0;
       if(chat.users[i].socketId == socket.id){
         currentPseudo = chat.users[i].username;
       }
@@ -106,6 +109,7 @@ class ChatController {
     if(currentPseudo == ""){
       for (var i = 0; i < chat.users.length; i++) {
         if(chat.users[i].steamid == data.user.steamid){
+          chat.users[i].rankId = 0;
           currentPseudo = chat.users[i].username;
           clientSockets[chat.users[i].socketId] = socket;
         }
@@ -163,6 +167,7 @@ class ChatController {
     if(user && !foundUser){
       clientSockets[socket.id] = socket;
       user.socketId = socket.id;
+      user.rankId = 0;
       chat.users.push(user);
     }
     this.broadcastMessages();

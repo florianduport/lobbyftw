@@ -31,6 +31,9 @@
       <img src="{{user.avatar.medium}}" class="pull-left"/>
       <div class="details pull-left">
         <div>{{user.username}}</div>
+        <div id="rankSelect">{{user.rankId}}
+          <select class="btn" ng-options="item for item in ranks track by $index" ng-model="selectedRank"></select>
+        </div>
         <div><a href="/logout">se déconnecter</a></div>
       </div>
     </div>
