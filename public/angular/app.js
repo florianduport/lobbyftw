@@ -98,12 +98,14 @@
       })
 
       $scope.sendMessage = function(channelId, message) {
-        $socket.emit('sendMessage', {
-          channelId: channelId,
-          user: $scope.user,
-          messages: [message],
-          date: new Date()
-        });
+        if(message.replace(' ', '') !== ""){
+          $socket.emit('sendMessage', {
+            channelId: channelId,
+            user: $scope.user,
+            messages: [message],
+            date: new Date()
+          });
+        }
       }
       $scope.isCurrentChannel = function(channel) {
 
@@ -120,11 +122,28 @@
         if (!$rootScope.user) {
           $location.path('/');
         }
-
+        $rootScope.user.rankId = 0;
         $scope.user = $rootScope.user;
 
         $socket.emit('addChatUser', $scope.user);
 
+        $socket.on('updateUsers', function(data){
+          if(data !== undefined && data.users !== undefined $scope.chat !== undefined && $scope.chat.users !== undefined){
+              for (var j = 0; j < data.users.length; j++) {
+                for (var i = 0; i < $scope.chat.users.length; i++) {
+                  if($scope.chat.users[i].steamid == data.users[j].steamid){
+                      $scope.chat.users[i] = data.users[j];
+                      if($scope.chat.users[i].steamid == $scope.user.steamid){
+                        $rootScope.user = data.users[j];
+                        $scope.user = $rootScope.user;
+                      }
+                  }
+                }
+              }
+          }
+          if(data){
+          }
+        });
         $socket.on('updateChat', function(data) {
           console.log(data);
           $scope.chat = data;

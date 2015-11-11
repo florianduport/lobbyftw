@@ -171,6 +171,7 @@ class ChatController {
       chat.users.push(user);
     }
     this.broadcastMessages();
+    socket.emit('updateUsers', chat.users);
   }
 
   removeChatUser(socket){
