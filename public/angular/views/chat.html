@@ -1,110 +1,123 @@
 <div id="container" ng-controller="globalChatController">
-  <input id="channelName" type="hidden" value="{{channel}}"/>
-  <div id="overlayer"></div>
-  <div id="sidebar" class="col-md-2">
-    <div id="name">
-      <h1><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Need/Last<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></h1>
-    </div>
-    <div id="channels">
-      <h3>CHANNELS</h3>
-      <ul>
-        <li ng-repeat="channelEl in chat.channels track by $index" ng-class="isCurrentChannel(channelEl)">
-          <div ng-if="channelEl.id == 0">
-              <a href="/#/general"><span class="sharp">#</span> général</a>
-          </div>
-          <div ng-if="channelEl.id != 0">
-              <a href="/#/room/{{channelEl.id}}"><span class="sharp">#</span> room {{$index}}</a>
-          </div>
-        </li>
-      <ul>
-    </div>
-    <div id="connectedUsers">
-      <h3>JOUEURS</h3>
-      <ul>
-        <li ng-repeat="user in chat.users track by $index">
-          <br ng-show="$index > 0"/>
-          <div class="onlineUser pull-left"></div><span class="pull-left">{{user.username}}</span>
-        </li>
-      </ul>
-    </div>
-    <div id="currentUser" class="col-md-12">
-      <img src="{{user.avatar.medium}}" class="pull-left"/>
-      <div class="details pull-left">
-        <div>{{user.username}}</div>
-        <div id="rankSelect">
-          <select class="btn" ng-options="rank.id as rank.name for rank in ranks" ng-model="user.rank.id" ng-change="updateUser()"></select>
-        </div>
-        <div><a href="/logout">se déconnecter</a></div>
-      </div>
-    </div>
-  </div>
-  <div id="chatzone" class="col-md-10">
-    <div id="channelName" ng-if="channel == 0"><h3># général</h3></div>
-    <div id="channelName" ng-if="channel > 0"><h3># room {{channel}}</h3></div>
-    <div id="chatzone_content">
-      <div class="chatzone_message" ng-repeat="message in currentChannel.messages">
-        <div ng-if="!message.isLobbyMessage">
-          <div class="rankPictureContainer pull-left">
-            <img src="/images/grades/grade{{message.user.rank.id}}.png"/>
-          </div>
-          <div class="profilePictureContainer pull-left">
-            <img src="{{message.user.avatar.small}}" class="profilePicture "/>
-          </div>
-          <div class="pseudo"><a href="{{message.user.profile}}" target="_blank">{{message.user.username}}</a> <span class="time">{{message.displayDate}}</span></div>
-          <div>
-            <p class="msgLine" ng-repeat="msgLine in message.messages track by $index">{{msgLine}}</p>
-          </div>
-        </div>
-        <div ng-if="message.isLobbyMessage" class="msgLobby">
-          <div class="rankPictureContainer pull-left">
-            <img src="/images/grades/grade{{message.user.rank.id}}.png"/>
-          </div>
-          <div class="profilePictureContainer pull-left">
-            <img src="{{message.user.avatar.small}}" class="profilePicture "/>
-          </div>
-            <div>
-              <p class="msgLine">
-                <b>{{message.user.username}} a ouvert un lobby</b> <span class="time">{{message.displayDate}}</span>
-
-                <div ng-if="message.isLobbyOpen && message.user.steamid != user.steamid" class="joinLobbyButtonZone pull-left">
-                  <a href="{{message.isLobbyMessage}}"><button class="btn btn-success"><span class="glyphicon glyphicon-play"></span> Rejoindre</button></a>
+    <input id="channelName" type="hidden" value="{{channel}}"/>
+    <div class="row">
+        <div id="sidebar" class="col-md-3 col-sm-3 col-lg-3">
+            <div id="name">
+                <h1><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Need/Last<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></h1>
+            </div>
+            <div id="channels">
+                <h3>CHANNELS</h3>
+                <hr/>
+                <ul>
+                    <li ng-repeat="channelEl in chat.channels track by $index" ng-class="isCurrentChannel(channelEl)">
+                        <div ng-if="channelEl.id == 0">
+                            <a href="/#/general"><span class="sharp">#</span> général</a>
+                        </div>
+                        <div ng-if="channelEl.id != 0">
+                            <a href="/#/room/{{channelEl.id}}"><span class="sharp">#</span> room {{$index}}</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div id="connectedUsers">
+                <h3>JOUEURS CONNECTES</h3>
+                <hr/>
+                <ul>
+                    <li ng-repeat="user in chat.users track by $index">
+                        <br ng-show="$index > 0"/>          
+                        <a href="{{user.profile}}" target="_blank">
+                            <div class="rankPictureContainer pull-left">
+                                <img src="/images/grades/grade{{user.rank.id}}.png"/>
+                            </div>
+                            <div class="profilePictureContainer pull-left">
+                                <img src="{{user.avatar.small}}" class="profilePicture "/>
+                            </div>
+                            <div class="pseudo">{{user.username}}</div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div id="currentUser" class="col-md-12 col-sm-12 col-lg-12">
+                <img src="{{user.avatar.medium}}" class="pull-left"/>
+                <div class="details pull-left">
+                    <div>{{user.username}}</div>
+                    <div id="rankSelect" class="text-left">
+                        <select class="form-control" ng-options="rank.id as rank.name for rank in ranks" ng-model="user.rank.id" ng-change="updateUser()"></select>
+                    </div>
+                    <div><a class="btn btn-sm btn-danger center-block" href="/logout">Se déconnecter</a></div>
                 </div>
-                <div ng-if="message.isLobbyOpen && message.user.steamid == user.steamid" class="joinLobbyButtonZone pull-left">
-                  <button class="btn btn-danger" ng-click="closeLobby(message)"><span class="glyphicon glyphicon-stop"></span> Fermer</button>
-                  <a href="{{message.isLobbyMessage}}"><button class="btn btn-success"><span class="glyphicon glyphicon-play"></span> Rejoindre</button></a>
-                </div>
-                <div ng-if="!message.isLobbyOpen" class="joinLobbyButtonZone pull-left">
-                  <b>{{message.user.username}} a fermé le lobby</b>
-                </div>
-              </p>
             </div>
         </div>
-      </div>
+        <div id="chatzone" class="col-md-9 col-sm-9 col-lg-9">
+            <div id="channelName" ng-if="channel == 0"><h3># général</h3></div>
+            <div id="channelName" ng-if="channel > 0"><h3># room {{channel}}</h3></div>
+            <div id="chatzone_content" class="col-md-12 col-sm-12 col-xs-12">
+                <div class="chatzone_message" ng-repeat="message in currentChannel.messages">
+                    <div ng-if="!message.isLobbyMessage">
+                        <div class="rankPictureContainer pull-left">
+                            <img src="/images/grades/grade{{message.user.rank.id}}.png"/>
+                        </div>
+                        <div class="profilePictureContainer pull-left">
+                            <img src="{{message.user.avatar.small}}" class="profilePicture "/>
+                        </div>
+                        <div class="pseudo"><a href="{{message.user.profile}}" target="_blank">{{message.user.username}}</a> <span class="time">{{message.displayDate.toLocaleString()}}</span></div>
+                        <div>
+                            <p class="msgLine" ng-repeat="msgLine in message.messages track by $index">{{msgLine}}</p>
+                        </div>
+                    </div>
+                    <div ng-if="message.isLobbyMessage" class="msgLobby">
+                        <div class="rankPictureContainer pull-left">
+                            <img src="/images/grades/grade{{message.user.rank.id}}.png"/>
+                        </div>
+                        <div class="profilePictureContainer pull-left">
+                            <img src="{{message.user.avatar.small}}" class="profilePicture "/>
+                        </div>
+                        <div>
+                            <div class="msgLine">
+                                <b>{{message.user.username}} a ouvert un lobby</b> <span class="time">{{message.displayDate}}</span>
+
+                                <div ng-if="message.isLobbyOpen && message.user.steamid != user.steamid" class="joinLobbyButtonZone pull-left">
+                                    <a href="{{message.isLobbyMessage}}"><button class="btn btn-success"><span class="glyphicon glyphicon-play"></span> Rejoindre</button></a>
+                                </div>
+                                <div ng-if="message.isLobbyOpen && message.user.steamid == user.steamid" class="joinLobbyButtonZone pull-left">
+                                    <button class="btn btn-danger" ng-click="closeLobby(message)"><span class="glyphicon glyphicon-stop"></span> Fermer</button>
+                                    <a href="{{message.isLobbyMessage}}"><button class="btn btn-success"><span class="glyphicon glyphicon-play"></span> Rejoindre</button></a>
+                                </div>
+                                <div ng-if="!message.isLobbyOpen" class="joinLobbyButtonZone pull-left">
+                                    <b>{{message.user.username}} a fermé le lobby</b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div id="textbox" class="col-md-12 col-sm-12 col-xs-12">
+                    <textarea class="form-control" autofocus rows="1" placeholder="balance la sauce papy"></textarea>
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="textbox">
-      <textarea autofocus rows="1"></textarea>
-    </div>
-  </div>
 </div>
 
 <script>
-  $(document).ready(function(){
+            $(document).ready(function(){
     var video = false;
-    if(video){
-      var videoList = [
-      'Bm_qKFWCg00',
-      'Bm_qKFWCg00',
-      'ORb54BFRUsY',
-      'nDX3PPM2i0E',
-      'b7KHPYd1SGQ',
-      'qKjhG0F44MQ',
-      'Vq6_SSKiL5o',
-      'zNmInKCy4lE',
-      'ORb54BFRUsY',
-      'ORb54BFRUsY'
-      ];
-      var random = Math.floor((Math.random() * videoList.length-1) + 1);
-      $('#content').tubular({videoId: videoList[random]});
+            if (video){
+    var videoList = [
+            'Bm_qKFWCg00',
+            'Bm_qKFWCg00',
+            'ORb54BFRUsY',
+            'nDX3PPM2i0E',
+            'b7KHPYd1SGQ',
+            'qKjhG0F44MQ',
+            'Vq6_SSKiL5o',
+            'zNmInKCy4lE',
+            'ORb54BFRUsY',
+            'ORb54BFRUsY'
+    ];
+            var random = Math.floor((Math.random() * videoList.length - 1) + 1);
+            $('#content').tubular({videoId: videoList[random]});
     }
-  });
+    });
 </script>

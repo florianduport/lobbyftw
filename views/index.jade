@@ -17,5 +17,5 @@ html(ng-app="lobbyftwApp")
     link(rel="icon" href="/images/csgo-logo.ico")
     title Need-Last.com
   body(ng-controller="mainController")
-    div(ng-view id="content")
+    div(ng-view id="content" class="container-fluid")
     input(type="hidden" name="authToken" id="authToken" value="#{authToken}")

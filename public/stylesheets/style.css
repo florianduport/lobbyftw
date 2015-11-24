@@ -2,189 +2,186 @@ html,body {
     height:100%;
 }
 body{
-  letter-spacing: 0.5;
+    letter-spacing: 0.5;
 }
 #indexContainer_popin{
-  height: 500px;
-  background-color: #303E4D;
-  opacity: 0.9;
-  margin-top: 50px;
-  color: white;
+    height: 100%;
+    background-color: #303E4D;
+    opacity: 0.9;
+    color: white;
 }
 #tubularWrapper{
-  position:absolute;
-  top: 0px;
-  height: 100%;
-  width: 100%;
-  z-index: 0;
+    position:absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
 }
 #container{
-  height: 100%;
-  z-index: 99;
+    height: 100%;
+    z-index: 99;
 }
 #name{
-  background-color: #2C3849;
-  top: 0;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  margin-bottom: 30px;
+    background-color: #2C3849;
+    top: 0;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-bottom: 30px;
 }
 #name h1{
-  font-family: 'Lato',sans-serif;
-  font-size: 1.5em;
-  font-weight: 900;
-  padding-left: 20px;
+    font-family: 'Lato',sans-serif;
+    font-size: 1.5em;
+    font-weight: 900;
+    padding-left: 20px;
 }
 #sidebar{
-  background-color: #303E4D;
-  height: 100%;
-  color : white;
-  padding: 0;
+    background-color: #303E4D;
+    height: 100%;
+    color : white;
+    padding: 0;
 }
 #sidebar h3{
-  text-align: left;
-  font-size: 1em;
-  line-height: 1.25em;
-  margin: 0 1em .1em;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: #acb1b7;
-  width: 160px;
+    text-align: left;
+    font-size: 1em;
+    line-height: 1.25em;
+    margin: 0 1em .1em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #acb1b7;
+
 }
 #sidebar a{
-  color : white;
-  text-decoration: none;
+    color : white;
+    text-decoration: none;
 }
 #channels{
-  margin-bottom: 30px;
+    margin-bottom: 30px;
 }
 #sidebar ul{
-  padding-left : 0;
+    padding-left : 0;
 }
 #sidebar li{
-  list-style: none;
-  width: 90%;
-  padding-left: 10px;
+    list-style: none;
+    width: 90%;
+    padding-left: 10px;
 }
 #channels .active{
-  background-color: #6698C8;
-  border-top-right-radius: 2px;
-  border-bottom-right-radius: 2px;
+    background-color: #6698C8;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
 }
 #channels .sharp{
-  color: #acb1b7;
+    color: #acb1b7;
 }
 #chatzone{
-  height: 100%;
-  position: relative;
-  padding: 0px;
+    height: 100%;
+    position: relative;
+    padding: 0px;
 }
 #chatzone_content{
-  height: 85%;
-  padding: 10px;
+    height: 85%;
+    padding: 10px;
 }
 #currentUser{
-  bottom: 0px;
-  position: absolute;
-  background-color: #2C3849;
-  padding: 10px;
+    bottom: 0px;
+    position: absolute;
+    background-color: #2C3849;
+    padding: 10px;
 }
 #currentUser .details{
-  margin-left: 10px;
+    margin-left: 10px;
 }
 .onlineUser{
-  background-color: #93CC92;
-  width: 8px;
-  height: 8px;
-  border-radius: 4px;
-  margin-top: 6px;
-  margin-right: 5px;
+    background-color: #93CC92;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    margin-top: 6px;
+    margin-right: 5px;
 }
 #channelName{
-  font-weight: bold;
-  padding: 10px;
+    font-weight: bold;
+    padding: 10px;
 }
 #textbox{
-  bottom: 0;
-  position: absolute;
-  width: 100%;
-  padding: 10px;
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    padding: 10px;
 }
 #textbox textarea{
-  width: 100%;
-  border-radius: 5px;
-  padding: 10px;
+    width: 100%;
+    border-radius: 5px;
+    padding: 10px;
 }
 #chatzone_content{
-  overflow: auto;
+    overflow: auto;
 }
 #chatzone_content .profilePicture{
-  margin-right: 10px;
-  margin-top : 4px;
+    margin-right: 10px;
 }
 #chatzone_content .pseudo{
-  font-weight: bold;
-  letter-spacing: normal;
+    font-weight: bold;
+    letter-spacing: normal;
 }
 #chatzone_content .pseudo a{
-  color: black;
+    color: black;
 }
 #chatzone_content .pseudo a:hover{
-  text-decoration: none;
+    text-decoration: none;
+    font-weight: bold;
 }
 #rankSelect select{
-  color: black !important;
-  max-width: 150px !important;
+    color: black !important;
 }
 .rankPictureContainer img {
     height: 32px;
     margin-right: 10px;
-    margin-top: 4px;
 }
 .bootstrap-select{
-  color : black;
+    color : black;
 }
 #chatzone_content .time{
-  color: grey;
-  font-size: 0.8em;
+    color: grey;
+    font-size: 0.8em;
 }
 .chatzone_message{
-  margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 .profilePictureContainer{
 }
 .msgLobby{
-  height: 80px;
-  margin-top: 18px;
+    height: 80px;
+    margin-top: 18px;
 }
 .joinLobbyLogo{
-  height: 100px;
-  margin-left: 20px;
-  margin-top: -10px;
+    height: 100px;
+    margin-left: 20px;
+    margin-top: -10px;
 }
 .joinLobbyButtonZone{
-  margin-left: 0px;
+    margin-left: 0px;
 }
 .joinLobbyButtonZone a{
-  text-decoration: none;
-  color: white;
+    text-decoration: none;
+    color: white;
 }
 .joinLobbyButtonZone a:hover{
-  text-decoration: none;
-  color: white;
+    text-decoration: none;
+    color: white;
 }
 .msgLine{
-  padding: 0;
-  margin: 0;
-  margin-left: 132px;
-  word-wrap: break-word;
+    padding: 0;
+    margin: 0;
+    margin-left: 132px;
+    word-wrap: break-word;
 }
 #overlayer{
-  top: 0;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  background-color: lightgrey;
-  opacity: 0.8;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: lightgrey;
+    opacity: 0.8;
 }
