@@ -96,7 +96,7 @@ class CsgoBot{
         }
 
     var username = 'jewelzeight';
-    var password = 'answer&&33';
+    var password = 'rourou';
     var authCode = '8K8YD';
 
     var logOnDetails = {

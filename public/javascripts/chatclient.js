@@ -19,10 +19,6 @@ $(document).ready(function(){
   checkLinks();
 
 
-/*  $('body').delegate('#rankSelect select', 'change', function(){
-    console.log($('#rankSelect select option:selected').val());
-  }); */
-
 });
 
 var checkLinks = function(){
@@ -36,7 +32,6 @@ var checkLinks = function(){
       if(words[i].indexOf('http://') > -1){
         var text = words[i];
         words[i] = "<a href='"+text+"' target='_blank'>"+text+"</a>";
-        console.log(words[i]);
       }
       if(i == 0){
         newContent += words[i];

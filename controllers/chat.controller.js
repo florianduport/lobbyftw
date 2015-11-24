@@ -155,6 +155,7 @@ class ChatController {
       for (var i = 0; i < words.length; i++) {
         if(words[i].indexOf('steam://') > -1){
           data.isLobbyMessage = words[i];
+          data.isLobbyMessage = data.isLobbyMessage.replace('unsafe:', '');
           data.isLobbyOpen = true;
         }
       }
