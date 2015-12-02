@@ -1,10 +1,17 @@
 <div id="container" ng-controller="globalChatController">
     <input id="channelName" type="hidden" value="{{channel}}"/>
-    <div class="row">
-        <div id="sidebar" class="col-md-3 col-sm-3 col-lg-3">
-            <div id="name">
-                <h1><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Need/Last<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></h1>
-            </div>
+    <div id="name" class="row topbar">
+        <div class="col-md-3 col-sm-3 col-lg-3 col-xs-3">
+            <h1><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>Need/Last<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></h1>
+        </div>
+        <div class="col-md-9 col-sm-9 col-lg-9">
+            <div id="channelName" ng-if="channel == 0"># général</div>
+            <div id="channelName" ng-if="channel > 0"># room {{channel}}</div>
+            <a class="btn btn-sm btn-danger pull-right" href="/logout">Se déconnecter</a>
+        </div>
+    </div>
+    <div class="row container-chatcore">
+        <div id="sidebar" class="col-md-3 col-sm-3 col-lg-3 col-xs-3">
             <div id="channels">
                 <h3>CHANNELS</h3>
                 <hr/>
@@ -37,22 +44,11 @@
                     </li>
                 </ul>
             </div>
-            <div id="currentUser" class="col-md-12 col-sm-12 col-lg-12">
-                <img src="{{user.avatar.medium}}" class="pull-left"/>
-                <div class="details pull-left">
-                    <div>{{user.username}}</div>
-                    <div id="rankSelect" class="text-left">
-                        <select class="form-control" ng-options="rank.id as rank.name for rank in ranks" ng-model="user.rank.id" ng-change="updateUser()"></select>
-                    </div>
-                    <div><a class="btn btn-sm btn-danger center-block" href="/logout">Se déconnecter</a></div>
-                </div>
-            </div>
+
         </div>
-        <div id="chatzone" class="col-md-9 col-sm-9 col-lg-9">
-            <div id="channelName" ng-if="channel == 0"><h3># général</h3></div>
-            <div id="channelName" ng-if="channel > 0"><h3># room {{channel}}</h3></div>
+        <div id="chatzone" class="col-md-9 col-sm-9 col-lg-9 col-xs-9">
             <div id="chatzone_content" class="col-md-12 col-sm-12 col-xs-12">
-                <div class="chatzone_message" ng-repeat="message in currentChannel.messages">
+                <div class="chatzone_message col-md-12 col-sm-12 col-xs-12" ng-repeat="message in currentChannel.messages">
                     <div ng-if="!message.isLobbyMessage">
                         <div class="rankPictureContainer pull-left">
                             <img src="/images/grades/grade{{message.user.rank.id}}.png"/>
@@ -91,10 +87,21 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <div id="textbox" class="col-md-12 col-sm-12 col-xs-12">
-                    <textarea class="form-control" autofocus rows="1" placeholder="balance la sauce papy"></textarea>
+        </div>
+    </div>
+    <div class="row downbar">
+        <div id="currentUser" class="col-md-3 col-sm-3 col-lg-3 col-xs-3">
+            <img src="{{user.avatar.medium}}" class="pull-left img-responsive"/>
+            <div class="details pull-left">
+                <div class="pseudo">{{user.username}}</div>
+                <div id="rankSelect" class="text-left">
+                    <select class="form-control" ng-options="rank.id as rank.name for rank in ranks" ng-model="user.rank.id" ng-change="updateUser()"></select>
                 </div>
+            </div>
+        </div>
+        <div id="chatzone_msgbox" class="col-md-9 col-sm-9 col-xs-9 col-xs-3">
+            <div class="form-group">
+                <textarea class="form-control chatzone_textarea" autofocus rows="1" placeholder="balance la sauce papy"></textarea>
             </div>
         </div>
     </div>
